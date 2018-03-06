@@ -20,8 +20,8 @@ void
 update_elev_last_floor_and_illuminate_floor_indicator(int *elev_last_floor);
 
 
-
-
+void 
+turn_off_lights_on_floor(int floor);
 
 
 int 
@@ -31,7 +31,8 @@ check_button_change(int button_value, int floor, elev_button_type_t button_type)
 void 
 change_button_value(int button_matrix[4][3], int floor, elev_button_type_t button_type );
 
-
+void 
+delete_orders_from_floor(int floor, int button_pressed_matrix[4][3]);
 
 void
 set_lamp(int light_value, elev_button_type_t button, int floor);

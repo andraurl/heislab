@@ -58,6 +58,31 @@ update_elev_last_floor_and_illuminate_floor_indicator(int *elev_last_floor)
 }
 
 
+void 
+turn_off_lights_on_floor(int floor)
+{
+	elev_set_button_lamp(BUTTON_COMMAND, floor, 0);
+	if (floor < 3)
+	{
+		elev_set_button_lamp(BUTTON_CALL_UP, floor, 0);
+	}
+	if (floor > 0)
+	{
+		elev_set_button_lamp(BUTTON_CALL_DOWN, floor, 0);
+	}
+	
+	
+}
+
+void 
+delete_orders_from_floor(int floor, int button_pressed_matrix[4][3])
+{
+	button_pressed_matrix[floor][BUTTON_COMMAND] = 0;
+	button_pressed_matrix[floor][BUTTON_CALL_UP] = 0;
+	button_pressed_matrix[floor][BUTTON_CALL_DOWN] = 0;
+
+}
+
 
 
 void update_button_matrix_and_illuminate_lights(int button_matrix[4][3])

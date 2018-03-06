@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "elev.h"
+#include "FSM.h"
 #include "event_handler.h"
 
 
@@ -13,7 +14,7 @@ int main() {
 
     printf("Press STOP button to stop elevator and exit program.\n");
 
-	
+	initialize(); 
     event_handler_loop(); 
     
 
