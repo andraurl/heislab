@@ -5,9 +5,9 @@
 int check_next_direction(int state, int button_pressed_matix[4][3],int last_known_floor, int last_known_direction)
 {
 
-	for (int button_type = 0; button_type<3; button_type++)
+	for (int button_type = 0; button_type < 3; button_type++)
 	{
-		if (button_pressed_matix[last_known_floor][button_type] && get_floor_signal == last_known_floor)
+		if (button_pressed_matix[last_known_floor][button_type] && get_floor_signal() == last_known_floor)
 			return STANDING_STILL_DOOR_OPEN;
 	}
 
@@ -62,15 +62,25 @@ order_module(int state, int button_pressed_matix[4][3], int stop_button, int las
 		return EMERGENCY; 
 	}
 
-
-
-	if(get_floor_signal() == -1)
+	// Hold døren åpen i 3 sek.
+	if(state == STANDING_STILL_DOOR_OPEN)
 	{
+		if( time(NULL)- open_time <= 3)
+		{
+			return STANDING_STILL_DOOR_OPEN;
+		}
+		return STANDING_STILL_DOOR_CLOSED;
+	}
+
+
+
+	if(get_floor_signal() == -1) // Mellom etasjer
+	{	// Fortsett i samme state hvis du state != EMERGENZY
 		if(state != EMERGENCY)
 		{
 			return state;
 		} 
-
+		// Anta emerganzy bestem retning etter betilling fra antatt etasjeverdi.
 		if (check_next_direction() == STANDING_STILL_DOOR_OPEN && last_known_direction == DIRN_DOWN)
 			return ELEVATOR_MOVING_UP;
 
@@ -80,15 +90,7 @@ order_module(int state, int button_pressed_matix[4][3], int stop_button, int las
 		return check_next_direction();
 	}
 
-
-	// Moving
-	if(check_next_direction() != -1)
-	{
-		return check_next_direction(); 
-	}
-	//Sjekk heisknapper
-
-	
+	// I en etasje fordi != -1. Stop på etasjen hvis det er forespurt.
 	if ( button_pressed_matix[get_floor_signal][BUTTON_COMMAND] 
 			|| (button_pressed_matix[get_floor_signal][BUTTON_CALL_UP] && last_known_direction == DIRN_UP)
 			|| (button_pressed_matix[get_floor_signal][BUTTON_CALL_DOWN] && last_known_direction == DIRN_DOWN))
@@ -96,15 +98,11 @@ order_module(int state, int button_pressed_matix[4][3], int stop_button, int las
 		return STANDING_STILL_DOOR_CLOSED;
 	}
 
-
-
-
-	if(state == STANDING_STILL_DOOR_OPEN)
+	// On floor fordu != -1. GJØR: Hvis det er noen som vil noe sett retning til å utføre dette.
+	if(check_next_direction() != -1)
 	{
-		if( time(NULL)- open_time <= 3)
-		{
-			return STANDING_STILL_DOOR_OPEN;
-		}
-		return STANDING_STILL_DOOR_CLOSED;
+		return check_next_direction();
 	}
+
+	return STANDING_STILL_DOOR_CLOSED;
 }
