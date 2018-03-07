@@ -97,6 +97,7 @@ is_active_order_on_floor(int floor)
 			return 1; 
 		}
 	}
+	return 0; 
 }
 
 int
@@ -159,17 +160,18 @@ calculate_next_state()
 			}
 			return ELEVATOR_MOVING_DOWN; 
 		}
+		return STANDING_STILL_DOOR_CLOSED; 
 	}
 
 	// Hvis vi er i etasjer: 
-	
+
 	// Hvis er i en etasje hvor den skal stoppe
 	if ( get_button_pressed_matrix(floor, BUTTON_COMMAND) 
 			|| (get_button_pressed_matrix(floor, BUTTON_CALL_UP) && (get_last_known_direction() == DIRN_UP || !is_active_order_below()))
 			|| (get_button_pressed_matrix(floor, BUTTON_CALL_DOWN) && (get_last_known_direction() == DIRN_DOWN || !is_active_order_above()))
 			)
 	{
-		printf("Beveger seg og stopper i en etasje den treffer fordi den skal\n");
+		printf("\nStopper i ETG pga active order in floor. \n");
 		return STANDING_STILL_DOOR_OPEN; 
 	}
 
