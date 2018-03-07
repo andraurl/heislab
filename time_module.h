@@ -1,11 +1,10 @@
-#ifndef time_module.h
-#define time_module.h
+# pragma once
 
+#include <time.h>
+#include "memory.h"
 
+time_t 
+get_door_open_time();
 
-
-
-
-
-
-#endif
+void 
+reset_open_time();

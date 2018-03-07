@@ -3,6 +3,7 @@
 
 #include "elev.h"
 #include <time.h>
+#include "time_module.h"
 #include <memory.h>
 #include "hardware_driver.h"
 

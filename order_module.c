@@ -109,7 +109,7 @@ calculate_next_state()
 	// Hold døren åpen i 3 sek.
 	if(get_state() == STANDING_STILL_DOOR_OPEN)
 	{
-		if(get_open_time() <= 3)
+		if(get_door_open_time() <= 3)
 		{
 			return STANDING_STILL_DOOR_OPEN;
 		}

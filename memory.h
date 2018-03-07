@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "FSM.h"
 #include "order_module.h"
-#include <time.h>
+
 
 int
 get_button_pressed_matrix(int floor, elev_button_type_t button); 
@@ -10,11 +10,11 @@ get_button_pressed_matrix(int floor, elev_button_type_t button);
 void 
 set_button_pressed_matrix(int floor, elev_button_type_t button, int value);
 
-time_t 
-get_open_time();
+time_t
+get_open_time(); 
 
-void 
-reset_open_time();
+void
+set_open_time(time_t time);
 
 int 
 get_state();
