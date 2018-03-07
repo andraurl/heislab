@@ -23,3 +23,6 @@ is_active_order_above();
 
 int
 is_active_order_below();
+
+int 
+is_active_order_on_floor(int floor);

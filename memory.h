@@ -45,3 +45,9 @@ get_stop_button();
 
 void 
 set_stop_button(int value);
+
+void 
+delete_orders_from_floor(int floor);
+
+void
+delete_all_orders();

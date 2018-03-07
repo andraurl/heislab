@@ -2,7 +2,7 @@
 
 
 int
-get_floor_signal()
+get_floor_sensor_signal()
 {
 	return elev_get_floor_sensor_signal();
 }
@@ -27,12 +27,12 @@ int
 check_button_change(int floor, elev_button_type_t button_type)
 {
 	return (get_button_pressed_matrix(floor, button_type) != elev_get_button_signal(button_type, floor));
-	
+
 }
 
 
 void 
-change_button_value(int floor, elev_button_type_t button_type )
+change_button_value_to_button_input(int floor, elev_button_type_t button_type )
 {
 	int value = elev_get_button_signal(button_type, floor);
 	set_button_pressed_matrix(floor,button_type, value); 
@@ -47,7 +47,7 @@ set_lamp(int light_value, elev_button_type_t button, int floor)
 
 
 void 
-update_elev_last_floor_and_illuminate_floor_indicator() 
+update_last_known_floor_and_illuminate_floor_indicator() 
 {
 	int current_floor = elev_get_floor_sensor_signal();
 	if(current_floor != -1)
@@ -56,6 +56,15 @@ update_elev_last_floor_and_illuminate_floor_indicator()
 		elev_set_floor_indicator(current_floor);
 	}
 }
+void
+update_stop_button_and_illuminate_light()
+{
+	if (check_stop_button_change())
+		{	
+			change_stop_button_value();
+			elev_set_stop_lamp(get_stop_button());
+		}
+} 
 
 
 void 
@@ -71,18 +80,44 @@ turn_off_lights_on_floor(int floor)
 		elev_set_button_lamp(BUTTON_CALL_DOWN, floor, 0);
 	}
 	
-	
 }
 
-void 
-delete_orders_from_floor(int floor)
+
+void
+deluminate_all_order_lights()
 {
-	set_button_pressed_matrix(floor, BUTTON_COMMAND, 0);
-	set_button_pressed_matrix(floor, BUTTON_CALL_UP, 0);
-	set_button_pressed_matrix(floor, BUTTON_CALL_DOWN, 0);
-
+	for(int floor = 0; floor <4; floor++)
+	{
+		turn_off_lights_on_floor(floor); 
+	}
 }
 
+void
+set_motor_direction(elev_motor_direction_t dir)
+{
+	elev_set_motor_direction(dir);
+}
+
+
+void
+set_door_open_lamp(int value)
+{
+	elev_set_door_open_lamp(value);
+}
+
+
+int 
+get_obstruction_signal()
+{
+	return elev_get_obstruction_signal(); 
+}
+
+
+int 
+on_floor()
+{
+	return (elev_get_floor_sensor_signal() != -1); 
+} 
 
 
 void update_button_matrix_and_illuminate_lights()
@@ -94,7 +129,7 @@ void update_button_matrix_and_illuminate_lights()
 
 		if(check_button_change(floor, BUTTON_CALL_UP) && get_button_pressed_matrix(floor, BUTTON_CALL_UP) == 0)
 		{
-			change_button_value(floor, BUTTON_CALL_UP);
+			change_button_value_to_button_input(floor, BUTTON_CALL_UP);
 			set_lamp(1, BUTTON_CALL_UP, floor);
 
 		}
@@ -105,7 +140,7 @@ void update_button_matrix_and_illuminate_lights()
 	{
 		if(check_button_change(floor, BUTTON_CALL_DOWN) && get_button_pressed_matrix(floor, BUTTON_CALL_DOWN) == 0)
 		{
-			change_button_value(floor, BUTTON_CALL_DOWN);
+			change_button_value_to_button_input(floor, BUTTON_CALL_DOWN);
 			set_lamp(1, BUTTON_CALL_DOWN, floor);
 		}
 	}
@@ -115,7 +150,7 @@ void update_button_matrix_and_illuminate_lights()
 	{
 		if(check_button_change(floor, BUTTON_COMMAND) && get_button_pressed_matrix(floor, BUTTON_COMMAND) == 0)
 		{
-			change_button_value(floor, BUTTON_COMMAND);
+			change_button_value_to_button_input(floor, BUTTON_COMMAND);
 			set_lamp(1, BUTTON_COMMAND, floor);
 		}
 	}

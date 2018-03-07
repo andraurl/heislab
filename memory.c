@@ -101,3 +101,22 @@ set_stop_button(int value)
 {
 	stop_button = value;
 }
+
+
+void 
+delete_all_orders()
+{
+	for(int floor = 0; floor<4; floor++)
+	{
+		delete_orders_from_floor(floor);
+	}
+}
+
+
+void 
+delete_orders_from_floor(int floor)
+{
+	set_button_pressed_matrix(floor, BUTTON_COMMAND, 0);
+	set_button_pressed_matrix(floor, BUTTON_CALL_UP, 0);
+	set_button_pressed_matrix(floor, BUTTON_CALL_DOWN, 0);
+}

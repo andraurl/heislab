@@ -6,9 +6,9 @@
 
 void initialize()
 {
-		elev_set_motor_direction(DIRN_DOWN);
-		while(elev_get_floor_sensor_signal() != 0) {}
-		elev_set_motor_direction(DIRN_STOP);	
+		set_motor_direction(DIRN_DOWN);
+		while(get_floor_sensor_signal() != 0) {}
+		set_motor_direction(DIRN_STOP);	
 }
 
 
@@ -20,10 +20,10 @@ STANDING_STILL_DOOR_OPEN_procedure()
 	
 	set_state(STANDING_STILL_DOOR_OPEN);
 	turn_off_lights_on_floor(get_last_known_floor());
-	printf("Just turned off light on floor %d\n", get_last_known_floor());
+	//printf("Just turned off light on floor %d\n", get_last_known_floor());
 	delete_orders_from_floor(get_last_known_floor());
-	elev_set_motor_direction(DIRN_STOP);
-	elev_set_door_open_lamp(1);
+	set_motor_direction(DIRN_STOP);
+	set_door_open_lamp(1);
 	reset_open_time(); 
 
 }
@@ -32,15 +32,15 @@ void
 STANDING_STILL_DOOR_CLOSED_procedure()
 {
 	set_state(STANDING_STILL_DOOR_CLOSED);
-	elev_set_door_open_lamp(0);
-	elev_set_motor_direction(DIRN_STOP);
+	set_door_open_lamp(0);
+	set_motor_direction(DIRN_STOP);
 }
 
 
 void 
 ELEVATOR_MOVING_UP_procedure()
 {
-	elev_set_motor_direction(DIRN_UP);
+	set_motor_direction(DIRN_UP);
 	set_last_known_direction(DIRN_UP);
 	set_state(ELEVATOR_MOVING_UP);
 }
@@ -49,38 +49,37 @@ void
 ELEVATOR_MOVING_DOWN_procedure()
 {
 	set_state(ELEVATOR_MOVING_DOWN);	 			
-	elev_set_motor_direction(DIRN_DOWN);
+	set_motor_direction(DIRN_DOWN);
 	set_last_known_direction(DIRN_DOWN);
 }
 
+void 
+EMERGENCY_procedure()
+{
+	set_state(EMERGENCY);
+
+	delete_all_orders(); 
+	deluminate_all_order_lights(); 
+	set_motor_direction(DIRN_STOP);
+
+ 	if( on_floor() )
+ 		{
+ 			set_door_open_lamp(1);
+ 			reset_open_time(); 
+		}
+}
 
 void FSM()
-{
+{	
 	elev_state next_state = calculate_next_state(); 
 
-	//printf("Get floor signal: %d\n",get_floor_signal()); 
-	//printf("%d\n",next_state);
-
-	if(next_state == ERROR)
-	{
-		printf("ERROR, next_state error");
-		exit(1);
-	}
 	if (next_state == EMERGENCY) 
 	{
-		set_state(EMERGENCY); 
-		elev_set_motor_direction(DIRN_STOP);
- 		if( get_floor_signal() != -1)
- 			{
- 				elev_set_door_open_lamp(1);
- 				reset_open_time(); 
-
- 			}
+		EMERGENCY_procedure(); 
 	}
 
 	else
 	{	
-
 		switch(get_state())
 	 	{
 		 	case STANDING_STILL_DOOR_CLOSED:
@@ -202,8 +201,19 @@ void FSM()
 		 				STANDING_STILL_DOOR_CLOSED_procedure(); 
 		 				break; 
 		 			}
+		 			case STANDING_STILL_DOOR_OPEN: 
+		 			{	
+		 				printf("was EMERGENCY - now STANDING_STILL_DOOR_OPEN");
+		 				STANDING_STILL_DOOR_OPEN_procedure(); 
+		 				break; 
+		 			}
 		 			case EMERGENCY: 
 		 			{
+		 				if( on_floor() )
+		 				{
+		 					reset_open_time(); 
+		 				}
+
 		 				break; 
 		 			}
 		 			default:

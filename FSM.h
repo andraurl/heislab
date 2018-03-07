@@ -32,9 +32,6 @@ Elevator_state
 void
 FSM();
 
-void
-set_lights(int light_value, elev_button_type_t button, int floor);
-
 
 
 
