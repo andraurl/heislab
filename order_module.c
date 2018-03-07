@@ -101,7 +101,8 @@ calculate_next_state()
 		}
 
 
-		// state() is STANDING_STILL_DOOR_CLOSED. 
+		// state() is STANDING_STILL_DOOR_CLOSED.
+        // This will only happen after EMERGENCY is called between floors.
 		if(is_active_order_below())
 		{
 			return  ELEVATOR_MOVING_DOWN;
@@ -123,7 +124,7 @@ calculate_next_state()
 	}
 
 	
-	// ON FLOOR MOVING 
+	// ON FLOOR - MOVING
 	if ( check_stop_on_current_floor(current_floor) )
 	{
 		return STANDING_STILL_DOOR_OPEN; 

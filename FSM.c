@@ -107,7 +107,7 @@ void FSM()
 
 	 			case EMERGENCY: 
 	 			{
-	 				printf("\nwas STANDING_STILL_DOOR_CLOSED- now EMERGENCY\n" );
+	 				printf("\nwas STANDING_STILL_DOOR_CLOSED - now EMERGENCY\n" );
 	 				EMERGENCY_procedure();
 	 				break; 
 	 			}
@@ -124,13 +124,13 @@ void FSM()
 			{
 	 			case STANDING_STILL_DOOR_CLOSED: 
 	 			{
-	 				printf("\nwas STANDING_STILL_DOOR_OPEN- now STANDING_STILL_DOOR_CLOSED\n" );
+	 				printf("\nwas STANDING_STILL_DOOR_OPEN - now STANDING_STILL_DOOR_CLOSED\n" );
 	 				STANDING_STILL_DOOR_CLOSED_procedure(); 
 	 				break; 
 	 			}
 	 			case EMERGENCY: 
 	 			{
-	 				printf("\nwas STANDING_STILL_DOOR_OPEN- now EMERGENCY\n" );
+	 				printf("\nwas STANDING_STILL_DOOR_OPEN-  now EMERGENCY\n" );
 	 				EMERGENCY_procedure();
 	 				break; 
 	 			}
@@ -163,14 +163,14 @@ void FSM()
 
 	 			case STANDING_STILL_DOOR_OPEN: 
 	 			{
-	 				printf("\nwas MVOING UP- now STANDING_STILL_DOOR_OPEN\n" );
+	 				printf("\nwas  ELEVATOR_MOVING_UP - now STANDING_STILL_DOOR_OPEN\n" );
 	 				STANDING_STILL_DOOR_OPEN_procedure(); 
 
 	 				break; 
 	 			}
 	 			case EMERGENCY: 
 	 			{
-	 				printf("\nwas ELEVATOR_MOVING_UP- now EMERGENCY\n" );
+	 				printf("\nwas ELEVATOR_MOVING_UP - now EMERGENCY\n" );
 	 				EMERGENCY_procedure();
 	 				break; 
 	 			}
@@ -193,13 +193,13 @@ void FSM()
 	 			}
 	 			case STANDING_STILL_DOOR_OPEN: 
 	 			{
-	 				printf("\nwas ELEVATOR_MOVING_DOWN- now STANDING_STILL_DOOR_OPEN\n" );
+	 				printf("\nwas ELEVATOR_MOVING_DOWN - now STANDING_STILL_DOOR_OPEN\n" );
 					STANDING_STILL_DOOR_OPEN_procedure();  
 	 				break; 
 	 			}
 	 			case EMERGENCY: 
 	 			{
-	 				printf("\nwas ELEVATOR_MOVING_DOWN- now EMERGENCY\n" );
+	 				printf("\nwas ELEVATOR_MOVING_DOWN - now EMERGENCY\n" );
 	 				EMERGENCY_procedure();
 	 				break; 
 	 			}
