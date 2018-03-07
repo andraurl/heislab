@@ -32,7 +32,7 @@ void
 change_button_value(int button_matrix[4][3], int floor, elev_button_type_t button_type );
 
 void 
-delete_orders_from_floor(int floor, int button_pressed_matrix[4][3]);
+delete_orders_from_floor(int floor);
 
 void
 set_lamp(int light_value, elev_button_type_t button, int floor);

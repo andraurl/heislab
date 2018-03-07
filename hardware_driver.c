@@ -75,11 +75,11 @@ turn_off_lights_on_floor(int floor)
 }
 
 void 
-delete_orders_from_floor(int floor, int button_pressed_matrix[4][3])
+delete_orders_from_floor(int floor)
 {
-	button_pressed_matrix[floor][BUTTON_COMMAND] = 0;
-	button_pressed_matrix[floor][BUTTON_CALL_UP] = 0;
-	button_pressed_matrix[floor][BUTTON_CALL_DOWN] = 0;
+	set_button_pressed_matrix(floor, BUTTON_COMMAND, 0);
+	set_button_pressed_matrix(floor, BUTTON_CALL_UP, 0);
+	set_button_pressed_matrix(floor, BUTTON_CALL_DOWN, 0);
 
 }
 

@@ -37,12 +37,12 @@ set_button_pressed_matrix(int floor, elev_button_type_t button, int value){
 time_t 
 get_open_time() const 
 {
-	return open_time;
+	return time(NULL) - open_time;
 }
 
 
 void 
-set_open_time() 
+reset_open_time() 
 {
 	open_time = time(NULL);
 }
