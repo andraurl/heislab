@@ -14,7 +14,7 @@ check_next_direction()
 
 	for (int button_type = 0; button_type<3; button_type++)
 	{
-		if (get_button_pressed_matix()[last_known_floor][button_type] && (get_floor_signal() == get_last_known_floor()))
+		if (get_button_pressed_matrix(get_last_known_floor(), button_type) && (get_floor_signal() == get_last_known_floor()))
 		{
 			printf( "Opens door because is at floor where order came from\n");
 
@@ -61,11 +61,11 @@ is_active_order_above()
 {
 
 
-	for(int floor = 3; floor > last_known_floor;floor--)
+	for(int floor = 3; floor > get_last_known_floor();floor--)
 	{
 		for(int button_type = 0; button_type<3;button_type++)
 		{
-			if(get_button_pressed_matix()[floor][button_type])
+			if(get_button_pressed_matrix(floor, button_type))
 			{
 				return 1; 
 			}
@@ -79,11 +79,11 @@ is_active_order_below()
 {
 
 
-	for(int floor = 0; floor < last_known_floor ;floor++)
+	for(int floor = 0; floor < get_last_known_floor() ;floor++)
 	{
 		for(int button_type = 0; button_type<3;button_type++)
 		{
-			if(get_button_pressed_matix()[floor][button_type])
+			if(get_button_pressed_matrix(floor, button_type))
 			{
 				return 1; 
 			}
@@ -122,7 +122,7 @@ calculate_next_state()
 
 	if(floor == -1) //Hvis vi er mellom etasjer
 	{
-		if(state != EMERGENCY) // Fortsett i samme state hvis ikke EMERGENZY
+		if(get_state() != EMERGENCY) // Fortsett i samme state hvis ikke EMERGENZY
 		{
 			return get_state();
 		} 
@@ -145,9 +145,9 @@ calculate_next_state()
 
 
 	// Hvis er i en etasje hvor den skal stoppe
-	if ( get_button_pressed_matix()[floor][BUTTON_COMMAND] 
-			|| (get_button_pressed_matix()[floor][BUTTON_CALL_UP] && (get_last_known_direction() == DIRN_UP || !is_active_order_below()))
-			|| (get_button_pressed_matix()[floor][BUTTON_CALL_DOWN] && (get_last_known_direction() == DIRN_DOWN || !is_active_order_above()))
+	if ( get_button_pressed_matrix(floor, BUTTON_COMMAND) 
+			|| (get_button_pressed_matrix(floor, BUTTON_CALL_UP) && (get_last_known_direction() == DIRN_UP || !is_active_order_below()))
+			|| (get_button_pressed_matrix(floor, BUTTON_CALL_DOWN) && (get_last_known_direction() == DIRN_DOWN || !is_active_order_above()))
 			)
 
 	{

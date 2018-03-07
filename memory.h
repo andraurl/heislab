@@ -3,44 +3,45 @@
 #include "FSM.h"
 #include "order_module.h"
 
-int** 
-get_button_pressed_matrix();
+
+int
+get_button_pressed_matrix(int floor, elev_button_type_t button); 
 
 void 
 set_button_pressed_matrix(int floor, elev_button_type_t button, int value);
 
 time_t 
-get_open_time() const;
+get_open_time();
 
 void 
 reset_open_time();
 
-elev_state 
-get_state() const;
+int 
+get_state();
 
 void 
-set_state(elev_state e_state);
-
-elev_state 
-get_next_state() const;
-
-void 
-set_next_state(elev_state e_state);
+set_state(int e_state);
 
 int 
-get_last_known_floor() const;
+get_next_state();
+
+void 
+set_next_state(int e_state);
+
+int 
+get_last_known_floor();
 
 void 
 set_last_known_floor(int floor);
 
 elev_motor_direction_t 
-get_last_known_direction() const;
+get_last_known_direction();
 
 void 
 set_last_known_direction(elev_motor_direction_t dir);
 
 int 
-get_stop_button() const;
+get_stop_button();
 
 void 
 set_stop_button(int value);

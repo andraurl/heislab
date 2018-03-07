@@ -12,8 +12,6 @@ static time_t open_time;
 
 static elev_state state = STANDING_STILL_DOOR_CLOSED;
 
-
-
 static int stop_button = 0; 
 
 static int last_known_floor = 0;
@@ -21,10 +19,11 @@ static int last_known_floor = 0;
 static elev_motor_direction_t last_known_direction = DIRN_UP;
 
 
-int** 
-get_button_pressed_matrix() const 
+
+int
+get_button_pressed_matrix(int floor, elev_button_type_t button)
 {
-	return button_pressed_matrix;
+	return button_pressed_matrix[floor][button];
 }
 
 
@@ -35,7 +34,7 @@ set_button_pressed_matrix(int floor, elev_button_type_t button, int value){
 
 
 time_t 
-get_open_time() const 
+get_open_time() 
 {
 	return time(NULL) - open_time;
 }
@@ -48,15 +47,15 @@ reset_open_time()
 }
 
 
-elev_state 
-get_state() const 
+int 
+get_state() 
 {
 	return state;
 }
 
 
 void 
-set_state(elev_state e_state) 
+set_state(int e_state) 
 {
 	state = e_state;
 }
@@ -64,7 +63,7 @@ set_state(elev_state e_state)
 
 
 int 
-get_last_known_floor()  const
+get_last_known_floor() 
 {
 	return last_known_floor;
 }
@@ -76,8 +75,8 @@ set_last_known_floor(int floor)
 }
 
 
-elev_motor_direction_t 
-get_last_known_direction() const
+int 
+get_last_known_direction()
 {
 	return last_known_direction;
 }
@@ -91,7 +90,7 @@ set_last_known_direction(elev_motor_direction_t dir)
 
 
 int 
-get_stop_button()  const
+get_stop_button()
 {
 	return stop_button;
 }

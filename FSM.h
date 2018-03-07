@@ -3,7 +3,7 @@
 
 #include "elev.h"
 #include <time.h>
-#include <>
+#include <memory.h>
 #include "hardware_driver.h"
 
 
@@ -21,7 +21,7 @@ Elevator_state
 	STANDING_STILL_DOOR_OPEN = 1, 
 	ELEVATOR_MOVING_UP = 2,
 	ELEVATOR_MOVING_DOWN = 3,	
-	EMERGENCY = 4, 
+	EMERGENCY = 4
 
 } elev_state;
 

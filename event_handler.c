@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include "FSM.h"
+#include "memory.h"
 
 
 
@@ -16,42 +17,25 @@
 void 
 event_handler_loop()
 {
-	time_t open_time; 
-	elev_state state = STANDING_STILL_DOOR_CLOSED;
-	int stop_button = 0; 
-	int last_known_floor = 0;
-	int last_known_direction = DIRN_UP; 
-	int button_pressed_matrix[4][3] = 
-	{
-		{0,0,0},
-		{0,0,0},
-		{0,0,0},
-		{0,0,0}
-	};
 
-	
-	
 
-	
 	while (1)
 	{
 	
 		// 1 - Ta inn events fra hardware
-		if (check_stop_button_change(stop_button))
+		if (check_stop_button_change())
 		{	
-			change_stop_button_value(&stop_button);
-			elev_set_stop_lamp(stop_button);
+			change_stop_button_value();
+			elev_set_stop_lamp(get_stop_button());
 		}
 
-		update_button_matrix_and_illuminate_lights(button_pressed_matrix); 
+		update_button_matrix_and_illuminate_lights(); 
 		
-		update_elev_last_floor_and_illuminate_floor_indicator(&last_known_floor);
+		update_elev_last_floor_and_illuminate_floor_indicator();
 	
 		
 
-
-
-        FSM(&state, button_pressed_matrix, stop_button, &open_time, &last_known_floor, &last_known_direction);
+        FSM();
 
 
         
