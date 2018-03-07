@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "FSM.h"
 #include "order_module.h"
-
+#include <time.h>
 
 int
 get_button_pressed_matrix(int floor, elev_button_type_t button); 

@@ -49,7 +49,7 @@ check_next_direction()
 		}
 		
 	}
-	printf(" -----   Ingen bestillinger  -----  \n");
+	//printf(" -----   Ingen bestillinger  -----  \n");
 	return STANDING_STILL_DOOR_CLOSED;
 
 
@@ -109,7 +109,7 @@ calculate_next_state()
 	// Hold døren åpen i 3 sek.
 	if(get_state() == STANDING_STILL_DOOR_OPEN)
 	{
-		if( time(NULL)- get_open_time() <= 3)
+		if(get_open_time() <= 3)
 		{
 			return STANDING_STILL_DOOR_OPEN;
 		}
