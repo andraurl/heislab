@@ -13,7 +13,7 @@ time_t
 get_open_time() const;
 
 void 
-set_open_time();
+reset_open_time();
 
 elev_state 
 get_state() const;

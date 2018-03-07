@@ -14,6 +14,46 @@ void initialize()
 
 
 
+void 
+STANDING_STILL_DOOR_OPEN_procedure()
+{
+	
+	set_state(STANDING_STILL_DOOR_OPEN);
+	turn_off_lights_on_floor(get_last_known_floor());
+	printf("Just turned off light on floor %d\n", get_last_known_floor());
+	delete_orders_from_floor(get_last_known_floor());
+	elev_set_motor_direction(DIRN_STOP);
+	elev_set_door_open_lamp(1);
+	reset_open_time(); 
+
+}
+
+void
+STANDING_STILL_DOOR_CLOSED_procedure()
+{
+	set_state(STANDING_STILL_DOOR_CLOSED);
+	elev_set_door_open_lamp(0);
+	elev_set_motor_direction(DIRN_STOP);
+}
+
+
+void 
+ELEVATOR_MOVING_UP_procedure()
+{
+	elev_set_motor_direction(DIRN_UP);
+	set_last_known_direction(DIRN_UP);
+	set_state(ELEVATOR_MOVING_UP);
+}
+
+void 
+ELEVATOR_MOVING_DOWN_procedure()
+{
+	set_state(ELEVATOR_MOVING_DOWN);	 			
+	elev_set_motor_direction(DIRN_DOWN);
+	set_last_known_direction(DIRN_DOWN);
+}
+
+
 void FSM()
 {
 	elev_state next_state = calculate_next_state(); 
@@ -51,39 +91,28 @@ void FSM()
 		 			case ELEVATOR_MOVING_UP: 
 		 			{
 		 					
-		 				set_state(ELEVATOR_MOVING_UP);
 		 				printf("was STANDING_STILL_DOOR_CLOSED- now ELEVATOR_MOVING_UP\n" );
-		 				elev_set_motor_direction(DIRN_UP);
-		 				set_last_known_direction(DIRN_UP);
+		 				ELEVATOR_MOVING_UP_procedure(); 
 		 				break; 
 		 			}
 		 			case ELEVATOR_MOVING_DOWN: 
 		 			{
-		 				set_state(ELEVATOR_MOVING_DOWN);
 		 				printf("was STANDING_STILL_DOOR_CLOSED- now ELEVATOR_MOVING_DOWN\n" );
-		 				elev_set_motor_direction(DIRN_DOWN);
-		 				set_last_known_direction(DIRN_DOWN);
+		 				ELEVATOR_MOVING_DOWN_procedure(); 
 
 		 				break; 
 		 			}
 		 			case STANDING_STILL_DOOR_OPEN: 
 		 			{
-		 				//
 		 				printf("was STANDING_STILL_DOOR_CLOSED- now STANDING_STILL_DOOR_OPEN\n" );
-		 				set_state(STANDING_STILL_DOOR_OPEN);
-		 				turn_off_lights_on_floor(get_last_known_floor());
-		 				printf("Just turned off light on floor %d\n", get_last_known_floor());
-		 				delete_orders_from_floor(get_last_known_floor());
-		 				elev_set_door_open_lamp(1);
-		 				reset_open_time(); 
+		 				STANDING_STILL_DOOR_OPEN_procedure(); 
+
 		 				break; 
 		 			}
 		 			
 		 			case STANDING_STILL_DOOR_CLOSED: 
-
 		 			{
 		 				//printf("was STANDING_STILL_DOOR_CLOSED - now STANDING_STILL_DOOR_CLOSED\n");
-		 				//printf("was STANDING_STILL_DOOR_CLOSED - now STANDING_STILL_DOOR_CLOSED");
 		 				break; 
 		 			}
 		 			default:
@@ -100,8 +129,7 @@ void FSM()
 		 			case STANDING_STILL_DOOR_CLOSED: 
 		 			{
 		 				printf("was STANDING_STILL_DOOR_OPEN- now STANDING_STILL_DOOR_CLOSED\n" );
-		 				set_state(STANDING_STILL_DOOR_CLOSED);
-		 				elev_set_door_open_lamp(0);
+		 				STANDING_STILL_DOOR_CLOSED_procedure(); 
 		 				break; 
 		 			}
 		 			
@@ -130,13 +158,8 @@ void FSM()
 		 			case STANDING_STILL_DOOR_OPEN: 
 		 			{
 		 				printf("was MVOING UP- now STANDING_STILL_DOOR_OPEN\n" );
-		 				set_state(STANDING_STILL_DOOR_OPEN);
-		 				turn_off_lights_on_floor(get_last_known_floor());
-		 				printf("Last known floor when turn off lights::: %d\n", get_last_known_floor());
-		 				delete_orders_from_floor(get_last_known_floor());
-		 				elev_set_motor_direction(DIRN_STOP);
-		 				elev_set_door_open_lamp(1);
-		 				reset_open_time(); 
+		 				STANDING_STILL_DOOR_OPEN_procedure(); 
+
 		 				break; 
 		 			}
 		 			default:
@@ -159,13 +182,7 @@ void FSM()
 		 			case STANDING_STILL_DOOR_OPEN: 
 		 			{
 		 				printf("was ELEVATOR_MOVING_DOWN- now STANDING_STILL_DOOR_OPEN\n" );
-		 				set_state(STANDING_STILL_DOOR_OPEN);
-		 				turn_off_lights_on_floor(get_last_known_floor());
-		 				printf("Last known floor when turn off lights::: %d\n", get_last_known_floor());
-		 				delete_orders_from_floor(get_last_known_floor());
-		 				elev_set_motor_direction(DIRN_STOP);
-		 				elev_set_door_open_lamp(1);
-		 				reset_open_time(); 
+						STANDING_STILL_DOOR_OPEN_procedure();  
 		 				break; 
 		 			}
 		 			default:
@@ -181,7 +198,8 @@ void FSM()
 		 		{
 		 			case STANDING_STILL_DOOR_CLOSED: 
 		 			{	
-		 				set_state(STANDING_STILL_DOOR_CLOSED);
+		 				printf("was EMERGENCY - now STANDING_STILL_DOOR_CLOSED");
+		 				STANDING_STILL_DOOR_CLOSED_procedure(); 
 		 				break; 
 		 			}
 		 			case EMERGENCY: 

@@ -12,7 +12,7 @@ static time_t open_time;
 
 static elev_state state = STANDING_STILL_DOOR_CLOSED;
 
-static elev_state next_state;
+
 
 static int stop_button = 0; 
 
@@ -61,19 +61,6 @@ set_state(elev_state e_state)
 	state = e_state;
 }
 
-
-elev_state 
-get_next_state()  const
-{
-	return order_module();
-}
-
-
-void 
-set_next_state(elev_state e_state) 
-{
-	state = e_state;
-}
 
 
 int 
