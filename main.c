@@ -12,8 +12,9 @@ int main() {
         return 1;
     }
 
-    printf("Press STOP button to stop elevator and exit program.\n");
-
+    printf("Make an obstruction to stop elevator and exit program.\n");
+    printf("Initializing elevator. Moving to first floor. \n");
+    
 	initialize(); 
     event_handler_loop(); 
     

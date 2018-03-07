@@ -40,7 +40,7 @@ event_handler_loop()
         
 
 
-        // Stop elevator and exit program if the stop button is pressed
+        // Stop elevator and exit program if there is an obstructionn. 
 
         
         if (elev_get_obstruction_signal() )
