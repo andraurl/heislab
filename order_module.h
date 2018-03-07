@@ -4,6 +4,7 @@
 #include <time.h>
 #include "FSM.h"
 #include "elev.h"
+#include "variables"
 
 
 

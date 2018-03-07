@@ -4,6 +4,10 @@
 
 int check_next_direction(int state, int button_pressed_matix[4][3],int last_known_floor, int last_known_direction)
 {
+	elev_state state = get_state();
+	int button_pressed_matix[4][3] = 
+	int last_known_floor 
+
 
 
 	if(state == ELEVATOR_MOVING_UP || state == ELEVATOR_MOVING_DOWN)
