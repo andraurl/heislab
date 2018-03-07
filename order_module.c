@@ -2,22 +2,19 @@
 #include "order_module.h"
 
 
-int check_next_direction(int state, int button_pressed_matix[4][3],int last_known_floor, int last_known_direction)
+int 
+check_next_direction()
 {
-	elev_state state = get_state();
-	int button_pressed_matix[4][3] = 
-	int last_known_floor 
 
 
-
-	if(state == ELEVATOR_MOVING_UP || state == ELEVATOR_MOVING_DOWN)
+	if(get_state() == ELEVATOR_MOVING_UP || get_state() == ELEVATOR_MOVING_DOWN)
 	{	
-		return state; 
+		return get_state(); 
 	}
 
 	for (int button_type = 0; button_type<3; button_type++)
 	{
-		if (button_pressed_matix[last_known_floor][button_type] && (get_floor_signal() == last_known_floor))
+		if (get_button_pressed_matix()[last_known_floor][button_type] && (get_floor_signal() == get_last_known_floor()))
 		{
 			printf( "Opens door because is at floor where order came from\n");
 
@@ -26,27 +23,27 @@ int check_next_direction(int state, int button_pressed_matix[4][3],int last_know
 	} //sjekker knappene til etasjen vi er i, og returnerer at heisen skal stå stille dersom den er trykket inn.
 	
 
-	if(last_known_direction == DIRN_UP)
+	if(get_last_known_direction() == DIRN_UP)
 	{
-		if(is_active_order_above(last_known_floor, button_pressed_matix))
+		if(is_active_order_above())
 		{
 			return ELEVATOR_MOVING_UP;
 		}
-		if(is_active_order_below(last_known_floor, button_pressed_matix))
+		if(is_active_order_below())
 		{
 			return ELEVATOR_MOVING_DOWN;
 		}
 	}
 
-	if(last_known_direction == DIRN_DOWN)
+	if(get_last_known_direction() == DIRN_DOWN)
 	{
 
-		if(is_active_order_below(last_known_floor, button_pressed_matix))
+		if(is_active_order_below())
 		{
 			return ELEVATOR_MOVING_DOWN;
 		}
 
-		if(is_active_order_above(last_known_floor, button_pressed_matix))
+		if(is_active_order_above())
 		{
 			return ELEVATOR_MOVING_UP;
 		}
@@ -60,13 +57,15 @@ int check_next_direction(int state, int button_pressed_matix[4][3],int last_know
 }
 
 int
-is_active_order_above(int last_known_floor, int button_pressed_matix[4][3])
+is_active_order_above()
 {
+
+
 	for(int floor = 3; floor > last_known_floor;floor--)
 	{
 		for(int button_type = 0; button_type<3;button_type++)
 		{
-			if(button_pressed_matix[floor][button_type])
+			if(get_button_pressed_matix()[floor][button_type])
 			{
 				return 1; 
 			}
@@ -76,13 +75,15 @@ is_active_order_above(int last_known_floor, int button_pressed_matix[4][3])
 }
 
 int
-is_active_order_below(int last_known_floor, int button_pressed_matix[4][3])
+is_active_order_below()
 {
+
+
 	for(int floor = 0; floor < last_known_floor ;floor++)
 	{
 		for(int button_type = 0; button_type<3;button_type++)
 		{
-			if(button_pressed_matix[floor][button_type])
+			if(get_button_pressed_matix()[floor][button_type])
 			{
 				return 1; 
 			}
@@ -93,19 +94,22 @@ is_active_order_below(int last_known_floor, int button_pressed_matix[4][3])
 
 
 int
-order_module(int state, int button_pressed_matix[4][3], int stop_button, int last_known_floor, int last_known_direction, time_t open_time)
+calculate_next_state()
 {
+
 	int floor = get_floor_signal(); 
-	if(stop_button)
+
+
+	if(get_stop_button())
 	{
 		return EMERGENCY; 
 	}
 
 
 	// Hold døren åpen i 3 sek.
-	if(state == STANDING_STILL_DOOR_OPEN)
+	if(get_state() == STANDING_STILL_DOOR_OPEN)
 	{
-		if( time(NULL)- open_time <= 3)
+		if( time(NULL)- get_open_time() <= 3)
 		{
 			return STANDING_STILL_DOOR_OPEN;
 		}
@@ -120,30 +124,30 @@ order_module(int state, int button_pressed_matix[4][3], int stop_button, int las
 	{
 		if(state != EMERGENCY) // Fortsett i samme state hvis ikke EMERGENZY
 		{
-			return state;
+			return get_state();
 		} 
 
 
 		// Hvis EMERGENCY - så sjekk dette - hvilken retning skal en bevege seg etter emergency. 
 
-		if (check_next_direction(state, button_pressed_matix, last_known_floor,last_known_direction) == STANDING_STILL_DOOR_OPEN && last_known_direction == DIRN_DOWN)
+		if (check_next_direction() == STANDING_STILL_DOOR_OPEN && get_last_known_direction() == DIRN_DOWN)
 			return ELEVATOR_MOVING_UP; 
 			// Sjekker neste retning etter emergency. 
 			// Hvis EMERGENCY, og heisen bevegde seg ned fra last known floor, og får bestilling til last known floor
 
-		if (check_next_direction(state, button_pressed_matix, last_known_floor,last_known_direction) == STANDING_STILL_DOOR_OPEN && last_known_direction == DIRN_UP)
+		if (check_next_direction() == STANDING_STILL_DOOR_OPEN && get_last_known_direction() == DIRN_UP)
 			return ELEVATOR_MOVING_DOWN;
 			// Sjekker neste retning etter emergency. 
 			// Hvis EMERGENCY, og heisen bevegde seg ned fra last known floor, og får bestilling til last known floor
 
-		return check_next_direction(state, button_pressed_matix, last_known_floor,last_known_direction); // Ellers så gå i retningen gitt av check_next_direction()
+		return check_next_direction(); // Ellers så gå i retningen gitt av check_next_direction()
 	}
 
 
 	// Hvis er i en etasje hvor den skal stoppe
-	if ( button_pressed_matix[floor][BUTTON_COMMAND] 
-			|| (button_pressed_matix[floor][BUTTON_CALL_UP] && (last_known_direction == DIRN_UP || !is_active_order_below(last_known_direction, button_pressed_matix)))
-			|| (button_pressed_matix[floor][BUTTON_CALL_DOWN] && (last_known_direction == DIRN_DOWN || !is_active_order_above(last_known_direction, button_pressed_matix)))
+	if ( get_button_pressed_matix()[floor][BUTTON_COMMAND] 
+			|| (get_button_pressed_matix()[floor][BUTTON_CALL_UP] && (get_last_known_direction() == DIRN_UP || !is_active_order_below()))
+			|| (get_button_pressed_matix()[floor][BUTTON_CALL_DOWN] && (get_last_known_direction() == DIRN_DOWN || !is_active_order_above()))
 			)
 
 	{
@@ -151,5 +155,5 @@ order_module(int state, int button_pressed_matix[4][3], int stop_button, int las
 		return STANDING_STILL_DOOR_OPEN; 
 	}
 
-	return check_next_direction(state, button_pressed_matix, last_known_floor,last_known_direction);
+	return check_next_direction();
 }

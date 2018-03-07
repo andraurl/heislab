@@ -25,7 +25,7 @@ void initialize()
 
 void FSM(int* state, int button_pressed_matrix[4][3], int stop_button, time_t* open_time, int* last_known_floor, int* last_known_direction)
 {
-	int next_state = order_module(*state,button_pressed_matrix, stop_button, *last_known_floor, *last_known_direction, *open_time); 
+	int next_state = calculate_next_state(); 
 	//printf("Get floor signal: %d\n",get_floor_signal()); 
 	//printf("%d\n",next_state);
 

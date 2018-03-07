@@ -29,8 +29,8 @@ event_handler_loop()
 		{0,0,0}
 	};
 
-	//elev_set_motor_direction(DIRN_UP);
-	//initialize(); 
+	
+	
 
 	
 	while (1)
@@ -50,39 +50,20 @@ event_handler_loop()
 		
 
 
-		//Changes direction on top and bottom floor
-
-		//if (elev_get_floor_sensor_signal() == N_FLOORS - 1) {
-        //    elev_set_motor_direction(DIRN_DOWN);
-        //} else if (elev_get_floor_sensor_signal() == 0) {
-        //    elev_set_motor_direction(DIRN_UP);
-        //}
-
 
         FSM(&state, button_pressed_matrix, stop_button, &open_time, &last_known_floor, &last_known_direction);
 
 
+        
+
+
         // Stop elevator and exit program if the stop button is pressed
-    
+
+
         if (elev_get_stop_signal()) {
             elev_set_motor_direction(DIRN_STOP);
             break;
         }
-
-
-	
-
-
-
-		// 2 - Oppdatere order module
-
-		// 3 - Kalle fsm 
-
-	
-	
-
-
-
 
 	}
 
