@@ -42,8 +42,6 @@ update_stop_button_and_illuminate_light();
 void 
 change_button_value_to_button_input(int floor, elev_button_type_t button_type );
 
-
-
 void
 set_lamp(int light_value, elev_button_type_t button, int floor);
 

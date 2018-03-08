@@ -56,6 +56,7 @@ update_last_known_floor_and_illuminate_floor_indicator()
 		elev_set_floor_indicator(current_floor);
 	}
 }
+
 void
 update_stop_button_and_illuminate_light()
 {

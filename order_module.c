@@ -24,7 +24,7 @@ is_active_order_below()
 {
 
 
-	for(int floor = 0; floor < get_last_known_floor() ;floor++)
+	for(int floor = 0; floor < get_last_known_floor(); floor++)
 	{
 		if(is_active_order_on_floor(floor))
 		{
@@ -38,7 +38,7 @@ is_active_order_below()
 int 
 is_active_order_on_floor(int floor)
 {
-	for(int button_type = 0; button_type<3;button_type++)
+	for(int button_type = 0; button_type < 3 ; button_type++)
 	{
 		if(get_button_pressed_matrix(floor, button_type))
 		{
