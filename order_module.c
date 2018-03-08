@@ -194,7 +194,6 @@ calculate_next_state()
 			
 		}
 	}
-	
 
 	// NO ORDERS
 	return STANDING_STILL_DOOR_CLOSED;

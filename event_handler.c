@@ -1,9 +1,4 @@
 #include "event_handler.h"
-#include <stdio.h>
-#include <time.h>
-#include "FSM.h"
-#include "memory.h"
-
 
 
 // Hovedløkke
@@ -28,7 +23,7 @@ event_handler_loop()
 		update_stop_button_and_illuminate_light(); 
 
 		// Dersom STOP knappen er trykket inn skal en ikke ta inn bestillinger.
-		if (!get_stop_button())
+		if (!get_stop_button_signal())
 		{
 			update_button_matrix_and_illuminate_lights(); 
 			update_last_known_floor_and_illuminate_floor_indicator();
@@ -43,7 +38,7 @@ event_handler_loop()
         // Stop elevator and exit program if there is an obstruction. 
 
         
-        if (elev_get_obstruction_signal() )
+        if (get_obstruction_signal() )
         {
             set_motor_direction(DIRN_STOP);
             break;

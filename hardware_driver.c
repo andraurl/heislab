@@ -7,6 +7,12 @@ get_floor_sensor_signal()
 	return elev_get_floor_sensor_signal();
 }
 
+int
+get_stop_button_signal()
+{
+	return elev_get_stop_signal();
+}
+
 
 int 
 check_stop_button_change()
