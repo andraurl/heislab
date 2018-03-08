@@ -79,12 +79,12 @@ calculate_next_state()
 	 = current_floor == -1;
 
 	int 
-	PASSING_FLOOR
+	ON_FLOOR_MOVING
 	 = (current_floor != -1 && (get_last_known_direction == DIRN_DOWN || get_last_known_direction == DIRN_UP);
 	
 	int 
 	ON_FLOOR_STANDING_STILL
-	 = (get_state() == STANDING_STILL_DOOR_OPEN || get_state() == STANDING_STILL_DOOR_CLOSED || get_state() == EMERGENCY;);
+	 = (get_state() == STANDING_STILL_DOOR_OPEN || get_state() == STANDING_STILL_DOOR_CLOSED || get_state() == EMERGENCY);
 
 
 	if(HOLD_EMERGENCY)
@@ -94,7 +94,7 @@ calculate_next_state()
 
 	if(BREAK_EMERGENCY) 
 	{
-		if(on_floor())
+		if( current_floor != -1 )
 		{
 			return STANDING_STILL_DOOR_OPEN;
 		}
@@ -144,7 +144,7 @@ calculate_next_state()
 
 	
 	// ON FLOOR - MOVING
-	if (PASSING_FLOOR)
+	if (ON_FLOOR_MOVING)
 	{	
 		if (check_stop_on_current_floor(current_floor))
 		{
