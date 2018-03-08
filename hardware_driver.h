@@ -48,6 +48,9 @@ set_lamp(int light_value, elev_button_type_t button, int floor);
 int
 get_floor_sensor_signal();
 
+int
+get_stop_button_signal();
+
 int 
 get_obstruction_signal();
 
