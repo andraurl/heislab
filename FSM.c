@@ -20,7 +20,7 @@ STANDING_STILL_DOOR_OPEN_procedure()
 	delete_orders_from_floor(get_last_known_floor());
 	set_motor_direction(DIRN_STOP);
 	set_door_open_lamp(1);
-	reset_open_time(); 
+	reset_door_open_time(); 
 }
 
 void
@@ -60,7 +60,7 @@ EMERGENCY_procedure()
  	if( on_floor() )
  		{
  			set_door_open_lamp(1);
- 			reset_open_time(); 
+ 			reset_door_open_time(); 
 		}
 }
 
@@ -228,7 +228,7 @@ void FSM()
 	 			{
 	 				if( on_floor() )
 	 				{
-	 					reset_open_time(); 
+	 					reset_door_open_time(); 
 	 				}
 
 	 				break; 

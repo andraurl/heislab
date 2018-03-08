@@ -7,4 +7,4 @@ time_t
 get_door_open_time();
 
 void 
-reset_open_time();
+set_open_time_NULL();

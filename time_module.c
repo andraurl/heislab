@@ -4,14 +4,7 @@
 
 
 time_t 
-get_door_open_time() 
+get_time_NULL()
 {
-	return time(NULL) - get_open_time();
-}
-
-
-void 
-reset_open_time() 
-{
-	set_open_time(time(NULL));
+	return (time(NULL)); 
 }
