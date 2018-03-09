@@ -1,14 +1,5 @@
 #include "event_handler.h"
 
-
-// Hovedløkke
-
-
-
-
-
-
-
 void 
 event_handler_loop()
 {
@@ -18,7 +9,6 @@ event_handler_loop()
 	{
 	
 		// Ta inn knappetrykk fra hardware. 
-		
 		update_stop_button_and_illuminate_light(); 
 
 		// Dersom STOP knappen er trykket inn skal en ikke ta inn bestillinger.

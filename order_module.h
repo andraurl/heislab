@@ -10,13 +10,10 @@
 
 // This module calculates the next state for the elevator. 
 
-int
-calculate_next_state();
 
 
 int
 is_active_order_above();
-
 
 int
 is_active_order_below();

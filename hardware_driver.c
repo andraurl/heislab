@@ -1,5 +1,15 @@
 #include "hardware_driver.h"
+void 
+change_stop_button_value();
 
+void 
+change_button_value_to_button_input(int floor, elev_button_type_t button_type );
+
+int 
+check_button_change(int floor, elev_button_type_t button_type);
+
+int 
+check_stop_button_change();
 
 int
 get_floor_sensor_signal()
