@@ -52,7 +52,7 @@ change_stop_button_value()
 int 
 check_button_change(int floor, elev_button_type_t button_type)
 {
-	return (get_button_pressed_matrix(floor, button_type) != elev_get_button_signal(button_type, floor));
+	return (get_order_matrix(floor, button_type) != elev_get_button_signal(button_type, floor));
 
 }
 
@@ -61,7 +61,7 @@ void
 change_button_value_to_button_input(int floor, elev_button_type_t button_type )
 {
 	int value = elev_get_button_signal(button_type, floor);
-	set_button_pressed_matrix(floor,button_type, value); 
+	set_order_matrix(floor,button_type, value); 
 }
 
 
@@ -97,7 +97,6 @@ update_stop_button_and_illuminate_light()
 void 
 turn_off_lights_on_floor(int floor)
 {
-    //printf("Turning off lights on %d\n", floor);
 	elev_set_button_lamp(BUTTON_COMMAND, floor, 0);
 	if (floor < 3)
 	{
@@ -148,15 +147,18 @@ on_floor()
 } 
 
 
-void update_button_matrix_and_illuminate_button_lights()
+void update_order_matrix_and_illuminate_button_lights()
 {
 
 	int button_value_change;
 	
+	// 
+
 	//BUTTON_CALL_UP
 	for(int floor = 0; floor<3; floor++)
 	{
-		button_value_change = check_button_change(floor, BUTTON_CALL_UP) && get_button_pressed_matrix(floor, BUTTON_CALL_UP) == 0;
+
+		button_value_change = check_button_change(floor, BUTTON_CALL_UP) && get_order_matrix(floor, BUTTON_CALL_UP) == 0;
 		if(button_value_change)
 		{
 			change_button_value_to_button_input(floor, BUTTON_CALL_UP);
@@ -168,7 +170,7 @@ void update_button_matrix_and_illuminate_button_lights()
 	//BUTTON_CALL_DOWN
 	for(int floor = 1; floor<4; floor++)
 	{
-		button_value_change = check_button_change(floor, BUTTON_CALL_DOWN) && get_button_pressed_matrix(floor, BUTTON_CALL_DOWN) == 0;
+		button_value_change = check_button_change(floor, BUTTON_CALL_DOWN) && get_order_matrix(floor, BUTTON_CALL_DOWN) == 0;
 		if(button_value_change)
 		{
 			change_button_value_to_button_input(floor, BUTTON_CALL_DOWN);
@@ -179,7 +181,7 @@ void update_button_matrix_and_illuminate_button_lights()
 	//BUTTON_COMMAND
 	for(int floor = 0; floor<4; floor++)
 	{
-		button_value_change = check_button_change(floor, BUTTON_COMMAND) && get_button_pressed_matrix(floor, BUTTON_COMMAND) == 0;
+		button_value_change = check_button_change(floor, BUTTON_COMMAND) && get_order_matrix(floor, BUTTON_COMMAND) == 0;
 		if(button_value_change)
 		{
 			change_button_value_to_button_input(floor, BUTTON_COMMAND);

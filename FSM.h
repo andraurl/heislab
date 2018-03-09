@@ -16,12 +16,22 @@
 void 
 initialize();
 
-
-
 void
 state_machine();
 
 
+
+
+typedef enum
+Elevator_state
+{
+    STANDING_STILL_DOOR_CLOSED = 0, 
+    STANDING_STILL_DOOR_OPEN = 1, 
+    ELEVATOR_MOVING_UP = 2,
+    ELEVATOR_MOVING_DOWN = 3,   
+    EMERGENCY = 4
+
+} elev_state;
 
 
 

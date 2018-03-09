@@ -1,6 +1,6 @@
 #pragma once
-
 #include <stdio.h>
+
 #include "memory.h"
 #include "elev.h"
 
@@ -12,7 +12,7 @@ int
 check_stop_button_change();
 
 void 
-update_button_matrix_and_illuminate_button_lights();
+update_order_matrix_and_illuminate_button_lights();
 
 void 
 update_last_known_floor_and_illuminate_floor_indicator();
