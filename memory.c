@@ -39,7 +39,7 @@ set_button_pressed_matrix(int floor, elev_button_type_t button, int value){
 time_t 
 get_door_open_time() 
 {
-	return get_time_NULL() - open_time();
+	return (get_time_NULL() - open_time);
 }
 
 void

@@ -77,6 +77,7 @@ update_stop_button_and_illuminate_light()
 void 
 turn_off_lights_on_floor(int floor)
 {
+    //printf("Turning off lights on %d\n", floor);
 	elev_set_button_lamp(BUTTON_COMMAND, floor, 0);
 	if (floor < 3)
 	{

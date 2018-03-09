@@ -10,6 +10,9 @@
 int 
 check_stop_button_change();
 
+
+// This module communicates directly with the hardware, through the "elev.h" module. 
+
 void 
 change_stop_button_value();
 

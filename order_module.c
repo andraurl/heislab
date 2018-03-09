@@ -39,12 +39,13 @@ is_active_order_on_floor(int floor)
 {
 	for(int button_type = 0; button_type < 3 ; button_type++)
 	{
-		if(get_button_pressed_matrix(floor, button_type))
+		
+		if(get_button_pressed_matrix(floor, button_type) == 1)
 		{
 			return 1; 
 		}
 	}
-	return 0; 
+	return 0;
 }
 
 
@@ -68,7 +69,7 @@ calculate_next_state()
 
 	int 
 	BREAK_EMERGENCY
-	 = (get_state() == STANDING_STILL_DOOR_OPEN && !get_stop_button_signal()); // STATE IS EMERGENCY - stop button not pressed
+	 = (get_state() == EMERGENCY && !get_stop_button_signal()); // STATE IS EMERGENCY - stop button not pressed
 
 	int 
 	OPEN_DOOR
@@ -80,11 +81,11 @@ calculate_next_state()
 
 	int 
 	ON_FLOOR_MOVING
-	 = (current_floor != -1 && (get_last_known_direction == DIRN_DOWN || get_last_known_direction == DIRN_UP);
+	 = (current_floor != -1 && (get_state() == ELEVATOR_MOVING_UP || get_state() == ELEVATOR_MOVING_DOWN));
 	
 	int 
 	ON_FLOOR_STANDING_STILL
-	 = (get_state() == STANDING_STILL_DOOR_OPEN || get_state() == STANDING_STILL_DOOR_CLOSED || get_state() == EMERGENCY);
+	 = (get_state() == STANDING_STILL_DOOR_OPEN || get_state() == STANDING_STILL_DOOR_CLOSED);
 
 
 	if(HOLD_EMERGENCY)
@@ -150,11 +151,7 @@ calculate_next_state()
 		{
 			return STANDING_STILL_DOOR_OPEN; 
 		}
-
-		if(get_state() == ELEVATOR_MOVING_UP || get_state() == ELEVATOR_MOVING_DOWN)
-		{	
-			return get_state();
-		}
+        return get_state(); 
 	}
 
 

@@ -1,7 +1,9 @@
 #pragma once
 #include <stdio.h>
 #include "time_module.h"
-// #include "FSM.h"
+#include <time.h>
+#include "elev.h" // for elev_button_type_t
+#include "FSM.h"
 // #include "order_module.h"
 
 
@@ -29,6 +31,8 @@ get_state();
 
 void 
 set_state(int e_state);
+
+// A memory location for all variables used in this applicaton. Has set() and get() functions for those variables. 
 
 int 
 get_next_state();

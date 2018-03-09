@@ -18,13 +18,14 @@ event_handler_loop()
 	{
 	
 		// Ta inn knappetrykk fra hardware. 
-		// Oppdaterer memory med aktive bestillinge r. 
-		// Setter lys høy dersom aktiv bestilling. 
+		
 		update_stop_button_and_illuminate_light(); 
 
 		// Dersom STOP knappen er trykket inn skal en ikke ta inn bestillinger.
 		if (!get_stop_button_signal())
 		{
+            // Oppdaterer memory med aktive bestillinger. 
+            // Setter lys høy dersom aktiv bestilling. 
 			update_button_matrix_and_illuminate_lights(); 
 			update_last_known_floor_and_illuminate_floor_indicator();
 		}

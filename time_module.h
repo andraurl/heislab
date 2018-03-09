@@ -3,8 +3,7 @@
 #include <time.h>
 #include "memory.h"
 
-time_t 
-get_door_open_time();
+// This module gets current time. 
 
-void 
-set_open_time_NULL();
+time_t 
+get_time_NULL();

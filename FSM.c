@@ -134,10 +134,13 @@ void FSM()
 	 			}
 	 			case STANDING_STILL_DOOR_OPEN: 
 	 			{
+                    //printf("Get get_last_known_floor: %d\n", get_last_known_floor());
 	 				if(is_active_order_on_floor(get_last_known_floor()))  // DENNE SKILLER SEG LITT UT FRA DE ANDRE. DETTE BØR VEL ORDER MODULE TA SEG AV?
 	 				{
+                        //printf("There is an active order on floor: %d\n", get_last_known_floor());
 	 					STANDING_STILL_DOOR_OPEN_procedure();
 	 				}
+                    turn_off_lights_on_floor(get_last_known_floor());
 	 				break; 
 	 			}
 

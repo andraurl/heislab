@@ -8,7 +8,7 @@
 #include "memory.h"
 
 
-
+// This module is the main loop where other modules are called from. 
 
 void 
 event_handler_loop(); 

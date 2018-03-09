@@ -3,12 +3,12 @@
 #include <stdio.h>
 #include <time.h>
 // #include "time_module.h"
-// #include "FSM.h"
+#include "FSM.h"
 // #include "elev.h"
-#include "hardware.h"
+#include "hardware_driver.h"
 #include "memory.h"
 
-
+// This module calculates the next state for the elevator. 
 
 int
 calculate_next_state();
