@@ -150,12 +150,14 @@ on_floor()
 
 void update_button_matrix_and_illuminate_button_lights()
 {
+
+	int button_value_change;
 	
 	//BUTTON_CALL_UP
 	for(int floor = 0; floor<3; floor++)
 	{
-
-		if(check_button_change(floor, BUTTON_CALL_UP) && get_button_pressed_matrix(floor, BUTTON_CALL_UP) == 0)
+		button_value_change = check_button_change(floor, BUTTON_CALL_UP) && get_button_pressed_matrix(floor, BUTTON_CALL_UP) == 0;
+		if(button_value_change)
 		{
 			change_button_value_to_button_input(floor, BUTTON_CALL_UP);
 			set_elevator_button_lamp(1, BUTTON_CALL_UP, floor);
@@ -166,7 +168,8 @@ void update_button_matrix_and_illuminate_button_lights()
 	//BUTTON_CALL_DOWN
 	for(int floor = 1; floor<4; floor++)
 	{
-		if(check_button_change(floor, BUTTON_CALL_DOWN) && get_button_pressed_matrix(floor, BUTTON_CALL_DOWN) == 0)
+		button_value_change = check_button_change(floor, BUTTON_CALL_DOWN) && get_button_pressed_matrix(floor, BUTTON_CALL_DOWN) == 0;
+		if(button_value_change)
 		{
 			change_button_value_to_button_input(floor, BUTTON_CALL_DOWN);
 			set_elevator_button_lamp(1, BUTTON_CALL_DOWN, floor);
@@ -176,7 +179,8 @@ void update_button_matrix_and_illuminate_button_lights()
 	//BUTTON_COMMAND
 	for(int floor = 0; floor<4; floor++)
 	{
-		if(check_button_change(floor, BUTTON_COMMAND) && get_button_pressed_matrix(floor, BUTTON_COMMAND) == 0)
+		button_value_change = check_button_change(floor, BUTTON_COMMAND) && get_button_pressed_matrix(floor, BUTTON_COMMAND) == 0;
+		if(button_value_change)
 		{
 			change_button_value_to_button_input(floor, BUTTON_COMMAND);
 			set_elevator_button_lamp(1, BUTTON_COMMAND, floor);

@@ -52,7 +52,9 @@ is_active_order_on_floor(int floor)
 int 
 check_stop_on_current_floor(int floor)
 {
-	return (get_button_pressed_matrix(floor, BUTTON_COMMAND) 
-			|| (get_button_pressed_matrix(floor, BUTTON_CALL_UP) && (get_last_known_direction() == DIRN_UP || !is_active_order_below()))
-			|| (get_button_pressed_matrix(floor, BUTTON_CALL_DOWN) && (get_last_known_direction() == DIRN_DOWN || !is_active_order_above())));
+	int stop_for_BUTTON_COMMAND = get_button_pressed_matrix(floor, BUTTON_COMMAND) ; 
+	int stop_for_BUTTON_CALL_UP = (get_button_pressed_matrix(floor, BUTTON_CALL_UP) && (get_last_known_direction() == DIRN_UP || !is_active_order_below())); 
+	int stop_for_BUTTON_CALL_DOWN = (get_button_pressed_matrix(floor, BUTTON_CALL_DOWN) && (get_last_known_direction() == DIRN_DOWN || !is_active_order_above())); 
+	
+	return (stop_for_BUTTON_COMMAND || stop_for_BUTTON_CALL_DOWN || stop_for_BUTTON_CALL_UP);
 }

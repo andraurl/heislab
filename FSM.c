@@ -19,6 +19,19 @@ void
 EMERGENCY_procedure();
 
 
+typedef enum 
+Elevator_state
+{
+    STANDING_STILL_DOOR_CLOSED = 0, 
+    STANDING_STILL_DOOR_OPEN = 1, 
+    ELEVATOR_MOVING_UP = 2,
+    ELEVATOR_MOVING_DOWN = 3,   
+    EMERGENCY = 4
+
+} elev_state;
+
+
+
 void initialize()
 {
 		set_motor_direction(DIRN_DOWN);
@@ -261,10 +274,8 @@ void state_machine()
  		default:
 	 		break;
 
-		} //Main switch end
- 	
+	} //Main switch end
 } //FSM ended
-
 
 
 
