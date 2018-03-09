@@ -1,4 +1,7 @@
 #include "hardware_driver.h"
+
+
+
 void 
 change_stop_button_value();
 
@@ -10,6 +13,13 @@ check_button_change(int floor, elev_button_type_t button_type);
 
 int 
 check_stop_button_change();
+
+void
+set_elevator_button_lamp(int light_value, elev_button_type_t button, int floor);
+
+
+
+
 
 int
 get_floor_sensor_signal()
@@ -56,7 +66,7 @@ change_button_value_to_button_input(int floor, elev_button_type_t button_type )
 
 
 void
-set_lamp(int light_value, elev_button_type_t button, int floor)
+set_elevator_button_lamp(int light_value, elev_button_type_t button, int floor)
 {
 	elev_set_button_lamp(button, floor, light_value);
 }
@@ -102,7 +112,7 @@ turn_off_lights_on_floor(int floor)
 
 
 void
-deluminate_all_order_lights()
+turn_off_all_order_lights()
 {
 	for(int floor = 0; floor <4; floor++)
 	{
@@ -138,7 +148,7 @@ on_floor()
 } 
 
 
-void update_button_matrix_and_illuminate_lights()
+void update_button_matrix_and_illuminate_button_lights()
 {
 	
 	//BUTTON_CALL_UP
@@ -148,7 +158,7 @@ void update_button_matrix_and_illuminate_lights()
 		if(check_button_change(floor, BUTTON_CALL_UP) && get_button_pressed_matrix(floor, BUTTON_CALL_UP) == 0)
 		{
 			change_button_value_to_button_input(floor, BUTTON_CALL_UP);
-			set_lamp(1, BUTTON_CALL_UP, floor);
+			set_elevator_button_lamp(1, BUTTON_CALL_UP, floor);
 
 		}
 	}
@@ -159,7 +169,7 @@ void update_button_matrix_and_illuminate_lights()
 		if(check_button_change(floor, BUTTON_CALL_DOWN) && get_button_pressed_matrix(floor, BUTTON_CALL_DOWN) == 0)
 		{
 			change_button_value_to_button_input(floor, BUTTON_CALL_DOWN);
-			set_lamp(1, BUTTON_CALL_DOWN, floor);
+			set_elevator_button_lamp(1, BUTTON_CALL_DOWN, floor);
 		}
 	}
 
@@ -169,7 +179,7 @@ void update_button_matrix_and_illuminate_lights()
 		if(check_button_change(floor, BUTTON_COMMAND) && get_button_pressed_matrix(floor, BUTTON_COMMAND) == 0)
 		{
 			change_button_value_to_button_input(floor, BUTTON_COMMAND);
-			set_lamp(1, BUTTON_COMMAND, floor);
+			set_elevator_button_lamp(1, BUTTON_COMMAND, floor);
 		}
 	}
 	

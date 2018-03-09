@@ -69,7 +69,7 @@ EMERGENCY_procedure()
 	set_state(EMERGENCY);
 
 	delete_all_orders(); 
-	deluminate_all_order_lights(); 
+	turn_off_all_order_lights(); 
 	set_motor_direction(DIRN_STOP);
 
  	if( on_floor() )
@@ -79,7 +79,7 @@ EMERGENCY_procedure()
 		}
 }
 
-void FSM()
+void state_machine()
 {	
 	elev_state next_state = calculate_next_state(); 
 

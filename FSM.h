@@ -19,7 +19,6 @@ void initialize();
 typedef enum 
 Elevator_state
 {
-	ERROR = -1,
 	STANDING_STILL_DOOR_CLOSED = 0, 
 	STANDING_STILL_DOOR_OPEN = 1, 
 	ELEVATOR_MOVING_UP = 2,
@@ -32,7 +31,7 @@ Elevator_state
 
 
 void
-FSM();
+state_machine();
 
 
 

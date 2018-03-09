@@ -16,11 +16,11 @@ event_handler_loop()
 		{
             // Oppdaterer memory med aktive bestillinger. 
             // Setter lys høy dersom aktiv bestilling. 
-			update_button_matrix_and_illuminate_lights(); 
+			update_button_matrix_and_illuminate_button_lights(); 
 			update_last_known_floor_and_illuminate_floor_indicator();
 		}
 
-        FSM();
+        state_machine();
 
 
         

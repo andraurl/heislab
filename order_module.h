@@ -2,14 +2,11 @@
 #pragma once
 #include <stdio.h>
 #include <time.h>
-// #include "time_module.h"
-#include "FSM.h"
-// #include "elev.h"
+
 #include "hardware_driver.h"
 #include "memory.h"
 
-// This module calculates the next state for the elevator. 
-
+// This module searches for active orders on given floors. 
 
 
 int
