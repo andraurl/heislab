@@ -1,6 +1,6 @@
 #include "memory.h"
 
-static int button_pressed_matrix[4][3] = 
+static int order_matrix[4][3] = 
 	{
 		{0,0,0},
 		{0,0,0},
@@ -22,15 +22,16 @@ static elev_motor_direction_t last_known_direction = DIRN_UP;
 
 
 int
-get_button_pressed_matrix(int floor, elev_button_type_t button)
+get_order_matrix(int floor, elev_button_type_t button)
 {
-	return button_pressed_matrix[floor][button];
+	return order_matrix[floor][button];
 }
 
 
 void 
-set_button_pressed_matrix(int floor, elev_button_type_t button, int value){
-	button_pressed_matrix[floor][button] = value;
+set_order_matrix(int floor, elev_button_type_t button, int value)
+{
+	order_matrix[floor][button] = value;
 }
 
 
@@ -39,7 +40,7 @@ set_button_pressed_matrix(int floor, elev_button_type_t button, int value){
 time_t 
 get_door_open_time() 
 {
-	return get_time_NULL() - open_time();
+	return (get_time_NULL() - open_time);
 }
 
 void
@@ -86,12 +87,12 @@ get_last_known_direction()
 	return last_known_direction;
 }
 
-
 void 
 set_last_known_direction(elev_motor_direction_t dir)  
 {
 	last_known_direction = dir;
 }
+
 
 
 int 
@@ -100,12 +101,14 @@ get_stop_button()
 	return stop_button;
 }
 
-
 void 
 set_stop_button(int value) 
 {
 	stop_button = value;
 }
+
+
+
 
 
 void 
@@ -121,7 +124,7 @@ delete_all_orders()
 void 
 delete_orders_from_floor(int floor)
 {
-	set_button_pressed_matrix(floor, BUTTON_COMMAND, 0);
-	set_button_pressed_matrix(floor, BUTTON_CALL_UP, 0);
-	set_button_pressed_matrix(floor, BUTTON_CALL_DOWN, 0);
+	set_order_matrix(floor, BUTTON_COMMAND, 0);
+	set_order_matrix(floor, BUTTON_CALL_UP, 0);
+	set_order_matrix(floor, BUTTON_CALL_DOWN, 0);
 }

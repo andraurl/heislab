@@ -1,14 +1,5 @@
 #include "event_handler.h"
 
-
-// Hovedløkke
-
-
-
-
-
-
-
 void 
 event_handler_loop()
 {
@@ -17,27 +8,25 @@ event_handler_loop()
 	while (1)
 	{
 	
-		// Ta inn knappetrykk fra hardware. 
-		// Oppdaterer memory med aktive bestillinge r. 
-		// Setter lys høy dersom aktiv bestilling. 
 		update_stop_button_and_illuminate_light(); 
 
-		// Dersom STOP knappen er trykket inn skal en ikke ta inn bestillinger.
+
 		if (!get_stop_button_signal())
 		{
-			update_button_matrix_and_illuminate_lights(); 
+			update_order_matrix_and_illuminate_button_lights(); 
 			update_last_known_floor_and_illuminate_floor_indicator();
 		}
 
-        FSM();
+
+
+
+        state_machine();
 
 
         
 
 
         // Stop elevator and exit program if there is an obstruction. 
-
-        
         if (get_obstruction_signal() )
         {
             set_motor_direction(DIRN_STOP);

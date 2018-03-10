@@ -4,6 +4,8 @@
 #include "FSM.h"
 #include "event_handler.h"
 
+// This module initializes the elevator and starts the event_handler_loop. 
+
 
 int main() {
     // Initialize hardware
@@ -16,6 +18,7 @@ int main() {
     printf("Initializing elevator. Moving to first floor. \n");
     
 	initialize(); 
+    printf("Done initializing elevator. \n");
     event_handler_loop(); 
     
 

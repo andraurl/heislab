@@ -1,28 +1,25 @@
 #pragma once
 #include <stdio.h>
 #include "time_module.h"
-// #include "FSM.h"
-// #include "order_module.h"
+#include <time.h>
 
+#include "elev.h"
+#include "FSM.h"
+
+
+// A memory location for all variables used in this applicaton. Has set() and get() functions for those variables. 
 
 int
-get_button_pressed_matrix(int floor, elev_button_type_t button); 
+get_order_matrix(int floor, elev_button_type_t button); 
 
 void 
-set_button_pressed_matrix(int floor, elev_button_type_t button, int value);
-
-
-
-
+set_order_matrix(int floor, elev_button_type_t button, int value);
 
 time_t 
 get_door_open_time();
 
 void
 reset_door_open_time();
-
-
-
 
 int 
 get_state();
@@ -59,3 +56,5 @@ delete_orders_from_floor(int floor);
 
 void
 delete_all_orders();
+
+
